@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('FirstName');
+            $table->string('LastName');
+            $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->foreignId('building_id')->nullable()->constrained('userbuilding', 'id')->onUpdate('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->enum('role', ['admin', 'user'])->default('user');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
