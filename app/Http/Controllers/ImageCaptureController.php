@@ -21,6 +21,7 @@ class ImageCaptureController extends Controller
 
     public function upload(Request $request)
     {
+        // dd($request->file("image"));
         //validate image
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
