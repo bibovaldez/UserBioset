@@ -24,9 +24,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'FirstName',
+        'LastName',
+        'username',
         'email',
+        'building_id',
+        'email_verified_at',
         'password',
+        'current_team_id',
+        'profile_photo_path',
+        'role',
     ];
 
     /**
@@ -61,5 +68,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    // check role
+    protected function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+    protected function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+    protected function isUser()
+    {
+        return $this->hasRole('user');
     }
 }
